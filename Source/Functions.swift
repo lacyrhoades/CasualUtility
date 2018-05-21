@@ -8,6 +8,21 @@
 
 import UIKit
 
+public func size(add: CGFloat) -> (UIFont?) -> UIFont? {
+    return {
+        guard let font = $0 else {
+            return nil
+        }
+        return UIFont.init(descriptor: font.fontDescriptor, size: font.pointSize + add)
+    }
+}
+
+public func left(_ value: CGFloat) -> (UIEdgeInsets) -> UIEdgeInsets {
+    return {
+        UIEdgeInsets.init(top: $0.top, left: value, bottom: $0.bottom, right: $0.right)
+    }
+}
+
 public func add(_ point: CGPoint) -> (CGPoint) -> CGPoint {
     return {
         (
@@ -76,10 +91,29 @@ public func multiply(by size: CGSize?) -> (CGSize) -> CGSize {
     return {
         (
             $0.width * (size?.width ?? 1),
-            $0.width * (size?.height ?? 1)
+            $0.height * (size?.height ?? 1)
             ) |> CGSize.init
     }
 }
+
+public func multiplyHeight(by scalar: CGFloat?) -> (CGSize) -> CGSize {
+    return {
+        (
+            $0.width,
+            $0.height * (scalar ?? 1)
+        ) |> CGSize.init
+    }
+}
+
+public func multiplyWidth(by scalar: CGFloat?) -> (CGSize) -> CGSize {
+    return {
+        (
+            $0.width * (scalar ?? 1),
+            $0.height
+        ) |> CGSize.init
+    }
+}
+
 
 public func multiply(by point: CGPoint?) -> (CGPoint) -> CGPoint {
     return {
