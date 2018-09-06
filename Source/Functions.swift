@@ -236,3 +236,8 @@ func offset(by distance: CGPoint?) -> (CGRect) -> CGRect {
     }
 }
 
+public func isWithin(_ bounds: CGSize) -> (CGPoint) -> Bool {
+    return {
+        $0.x > 0 && $0.x < bounds.width && $0.y > 0 && $0.y < bounds.height
+    }
+}
