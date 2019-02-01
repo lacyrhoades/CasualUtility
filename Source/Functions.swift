@@ -1,12 +1,6 @@
-//
-//  Functions.swift
-//  ImageEditing
-//
-//  Created by Lacy Rhoades on 4/18/18.
-//  Copyright © 2018 Lacy Rhoades. All rights reserved.
-//
-
 import UIKit
+
+public typealias ActionBlock = () -> ()
 
 public func size(add: CGFloat) -> (UIFont?) -> UIFont? {
     return {
@@ -212,7 +206,7 @@ public func centerPoint() -> (CGSize) -> CGPoint {
     }
 }
 
-func zoom(by scalar: CGFloat?) -> (CGRect) -> CGRect {
+public func zoom(by scalar: CGFloat?) -> (CGRect) -> CGRect {
     return {
         (
             $0.size
@@ -227,7 +221,7 @@ func zoom(by scalar: CGFloat?) -> (CGRect) -> CGRect {
     }
 }
 
-func offset(by distance: CGPoint?) -> (CGRect) -> CGRect {
+public func offset(by distance: CGPoint?) -> (CGRect) -> CGRect {
     return {
         (
             $0.origin |> offset(by: distance),

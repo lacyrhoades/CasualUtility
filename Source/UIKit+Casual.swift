@@ -1,11 +1,3 @@
-//
-//  UIKit+Casual.swift
-//  ImageEditing
-//
-//  Created by Lacy Rhoades on 4/18/18.
-//  Copyright © 2018 Lacy Rhoades. All rights reserved.
-//
-
 import UIKit
 
 extension CGPoint {
@@ -38,5 +30,11 @@ extension CGAffineTransform {
     }
     public init(translate size: CGPoint) {
         self.init(translationX: size.x, y: size.y)
+    }
+}
+
+extension CGSize {
+    var ratio: Float {
+        return Float(self.width / self.height)
     }
 }
