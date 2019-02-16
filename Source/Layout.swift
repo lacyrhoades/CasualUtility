@@ -265,6 +265,12 @@ public struct Layout {
         inView.addConstraint(constraint)
         return constraint
     }
+
+    @discardableResult public static func matchTop(of: UIView, to: UIView) -> NSLayoutConstraint {
+        let constraint = NSLayoutConstraint(item: of, attribute: .top, relatedBy: .equal, toItem: to, attribute: .top, multiplier: 1.0, constant: 0)
+        to.superview!.addConstraint(constraint)
+        return constraint
+    }
     
     public static func square(_ view: UIView, toSize size: CGFloat) {
         view.superview!.addConstraint(NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: size))
