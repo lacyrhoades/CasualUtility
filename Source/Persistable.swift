@@ -18,8 +18,15 @@ public protocol Persistable: Codable {
 extension Persistable {
     public static func load() -> Self {
         
-        if let stored = try? Disk.retrieve(Self.persistencePath, from: .documents, as: Self.self) {
+        do {
+            let stored = try Disk.retrieve(Self.persistencePath, from: .documents, as: Self.self)
             return stored
+        } catch {
+            let message = "Error loading Persistable object! \(Self.persistencePath) \(error.localizedDescription)"
+            print(message)
+            if FileManager().fileExists(atPath: Self.persistencePath) {
+                assert(false, message)
+            }
         }
         
         return Self()
