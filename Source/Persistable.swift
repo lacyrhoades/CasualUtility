@@ -24,7 +24,7 @@ extension Persistable {
         } catch {
             let message = "Error loading Persistable object! \(Self.persistencePath) \(error.localizedDescription)"
             print(message)
-            if FileManager().fileExists(atPath: Self.persistencePath) {
+            if FileManager.default.fileExists(atPath: Self.persistencePath) {
                 assert(false, message)
             }
         }
