@@ -22,7 +22,7 @@ extension Persistable {
             let stored = try Disk.retrieve(Self.persistencePath, from: .documents, as: Self.self)
             return stored
         } catch {
-            let message = "Error loading Persistable object! \(Self.persistencePath) \(error.localizedDescription)"
+            let message = "Error loading \"Persistable\" object from \(Self.persistencePath)\nError message: \(error.localizedDescription)"
             print(message)
             if FileManager.default.fileExists(atPath: Self.persistencePath) {
                 assert(false, message)
