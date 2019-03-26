@@ -69,7 +69,7 @@ extension UIImage {
         return resultImage!
     }
     
-    public func imageInside(cropSize: CGSize, backgroundColor: UIColor) -> UIImage {
+    public func imageInside(cropSize: CGSize, backgroundColor: UIColor, yOffset: Float = 0.5) -> UIImage {
         var scaledSize: CGSize
         
         var dx: CGFloat = 0
@@ -79,12 +79,12 @@ extension UIImage {
             // fit width
             let ratio = cropSize.width / self.size.width
             scaledSize = CGSize(width: cropSize.width, height: cropSize.height * ratio)
-            dy = CGFloat(cropSize.height - scaledSize.height) / 2.0
+            dy = CGFloat(cropSize.height - scaledSize.height) * CGFloat(yOffset)
         } else {
             // fit height
             let ratio = cropSize.height / self.size.height
             scaledSize = CGSize(width: cropSize.width * ratio, height: cropSize.height)
-            dx = CGFloat(cropSize.width - scaledSize.width) / 2.0
+            dx = CGFloat(cropSize.width - scaledSize.width) * CGFloat(yOffset)
         }
         
         return ImageRenderUtil.renderer(forSize: cropSize).image(actions: { (context) in
@@ -114,11 +114,11 @@ extension UIImage {
         }
     }
 
-    public func imageByCanvasCropping(toRatio ratio: CGFloat, backgroundColor: UIColor? = nil) -> UIImage {
-        return self.imageByCanvasCroppingTo(cropSize: CGSize(width: self.size.width, height: self.size.width / ratio), backgroundColor: backgroundColor)
+    public func imageCroppedToFitInside(ratio: Float, backgroundColor: UIColor, yOffset: Float) -> UIImage {
+        return self.imageInside(cropSize: CGSize(width: self.size.height * CGFloat(ratio), height: self.size.height), backgroundColor: backgroundColor, yOffset: yOffset)
     }
 
-    public func imageByCanvasCroppingTo(cropSize: CGSize, backgroundColor: UIColor? = nil) -> UIImage {
+    public func imageCroppedToFitInside(cropSize: CGSize, backgroundColor: UIColor? = nil) -> UIImage {
         let xOffset: CGFloat = floor((self.size.width - cropSize.width) / 2.0)
         let yOffset: CGFloat = floor((self.size.height - cropSize.height) / 2.0)
 
