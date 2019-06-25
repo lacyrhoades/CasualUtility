@@ -189,12 +189,12 @@ public struct Layout {
         return constraints
     }
     
-    @discardableResult public static func pinAllMargins(of ofView: UIView, to toView: UIView, in inView: UIView) -> [NSLayoutConstraint] {
+    @discardableResult public static func pinAllMargins(of ofView: UIView, to toView: UIView, in inView: UIView, withMargins margin: CGFloat = 0) -> [NSLayoutConstraint] {
         let constraints = [
-            NSLayoutConstraint(item: ofView, attribute: .top, relatedBy: .equal, toItem: toView, attribute: .topMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: ofView, attribute: .bottom, relatedBy: .equal, toItem: toView, attribute: .bottomMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: ofView, attribute: .leading, relatedBy: .equal, toItem: toView, attribute: .leadingMargin, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: ofView, attribute: .trailing, relatedBy: .equal, toItem: toView, attribute: .trailingMargin, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: ofView, attribute: .top, relatedBy: .equal, toItem: toView, attribute: .topMargin, multiplier: 1, constant: margin),
+            NSLayoutConstraint(item: ofView, attribute: .bottom, relatedBy: .equal, toItem: toView, attribute: .bottomMargin, multiplier: 1, constant: -1 * margin),
+            NSLayoutConstraint(item: ofView, attribute: .leading, relatedBy: .equal, toItem: toView, attribute: .leadingMargin, multiplier: 1, constant: margin),
+            NSLayoutConstraint(item: ofView, attribute: .trailing, relatedBy: .equal, toItem: toView, attribute: .trailingMargin, multiplier: 1, constant: -1 * margin)
         ]
         inView.addConstraints(constraints)
         return constraints
@@ -239,6 +239,13 @@ public struct Layout {
     
     @discardableResult public static func matchMaxHeight(ofView: UIView, toView: UIView, inView: UIView, byFactorOf multiplier: CGFloat) -> NSLayoutConstraint {
         let constraint = NSLayoutConstraint(item: ofView, attribute: .height, relatedBy: .lessThanOrEqual, toItem: toView, attribute: .height, multiplier: multiplier, constant: 0)
+        inView.addConstraint(constraint)
+        return constraint
+    }
+
+    @discardableResult public static func matchMinHeight(ofView: UIView, toView: UIView, inView: UIView, byFactorOf multiplier: CGFloat, withPriority priority: UILayoutPriority = .required) -> NSLayoutConstraint {
+        let constraint = NSLayoutConstraint(item: ofView, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: toView, attribute: .height, multiplier: multiplier, constant: 0)
+        constraint.priority = priority
         inView.addConstraint(constraint)
         return constraint
     }

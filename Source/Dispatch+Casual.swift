@@ -13,6 +13,17 @@ extension DispatchQueue {
 }
 
 extension DispatchGroup {
+    public func waitOrElse(_ timeout: TimeInterval) -> Bool {
+        let result = self.wait(timeout)
+        
+        switch result {
+        case .timedOut:
+            return false
+        case .success:
+            return true
+        }
+    }
+    
     public func wait(_ timeout: TimeInterval) -> DispatchTimeoutResult {
         return self.wait(timeout: DispatchTime(timeout))
     }

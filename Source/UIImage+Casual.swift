@@ -283,7 +283,7 @@ extension UIImage {
 
         return img!
     }
-
+    
     public func image(byOverlayingImage overlay: UIImage) -> UIImage {
 
         let size = self.size
@@ -376,8 +376,9 @@ extension UIImage {
         return img!
     }
 
-    public static func imageFrom(color: UIColor) -> UIImage? {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+    public static func imageFrom(color: UIColor, size: CGSize? = nil) -> UIImage? {
+        let size = size ?? CGSize(width: 1, height: 1)
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContext(rect.size);
         let context = UIGraphicsGetCurrentContext()
         context?.setFillColor(color.cgColor)
