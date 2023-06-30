@@ -33,7 +33,12 @@ extension Persistable {
     }
 
     public static func save(_ obj: Self) {
-        try? Disk.save(obj, to: .documents, as: Self.persistencePath)
+        do {
+            try Disk.save(obj, to: .documents, as: Self.persistencePath)
+        } catch {
+            let message = "Error saving \"Persistable\" object from \(Self.persistencePath)\nError message: \(error.localizedDescription)"
+            print(message)
+        }
     }
 
     public static var persistencePath: String {
