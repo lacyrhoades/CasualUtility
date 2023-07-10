@@ -180,8 +180,8 @@ extension UIImage {
 
     }
 
-    public func imageResizedToFit(boundingBox: CGSize) -> UIImage {
-        if self.size.height <= boundingBox.height && self.size.width <= boundingBox.width {
+    public func imageResizedToFit(boundingBox: CGSize, forceUpscale: Bool = false) -> UIImage {
+        if !forceUpscale && self.size.height <= boundingBox.height && self.size.width <= boundingBox.width {
             return self
         }
 
